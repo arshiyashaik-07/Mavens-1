@@ -1,0 +1,45 @@
+pipeline{
+    agent any
+    stages{
+        stage("Maven Build"){
+            when {
+                branch "develop"
+            }
+            steps{
+               sh "mvn clean package"
+            }
+        }
+        stage("Sonar analysis"){
+            when {
+                branch "develop"
+            }
+            steps{
+               echo "Sonar Analysis"
+            }
+        }
+        stage("Dev Deploy"){
+            when{
+                branch 'develop'
+            }
+            steps{
+               echo "Dev Deploy..."
+            }
+        }
+        stage("test Deploy"){
+            when{
+                branch 'test'
+            }
+            steps{
+               echo "test Deploy..."
+            }
+        }
+        stage("prod Deploy"){
+            when{
+                branch 'main'
+            }
+            steps{
+               echo "prod Deploy..."
+            }
+        }
+    }
+}
